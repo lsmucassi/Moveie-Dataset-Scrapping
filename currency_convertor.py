@@ -22,7 +22,7 @@ def word_to_value(word):
 def parse_word_syntax(string):
     value_string = re.search(number, string).group()
     value = float(value_string.replace(",", ""))
-    word = re.search(amount, string).group()
+    word = re.search(amount, string, flags=re.I).group().lower()
     word_value = word_to_value(word)
     return value*word_value 
 
@@ -35,7 +35,7 @@ def money_conversion(money):
     if isinstance(money, list):
         money= money[0]
 
-    word_syntax = re.search(word_re, money)
+    word_syntax = re.search(word_re, money, flags=re.I)
     value_syntax = re.search(value_re, money)
 
     if word_syntax:
@@ -45,6 +45,6 @@ def money_conversion(money):
 
 
 # print(re.search(word_re, "$12.2 million").group())
-print(money_conversion("$12 million"))
+print(money_conversion("$12 Million"))
 
 
